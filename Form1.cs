@@ -22,6 +22,7 @@ namespace Calculator2
             InitializeComponent();
         }
 
+
         private void buttonNumber_Click(object sender, EventArgs e)
         {
             if (textBox_Result.Text == "0" || isOperationPerformed)
@@ -32,7 +33,7 @@ namespace Calculator2
             textBox_Result.Text += button.Text;
         }
 
-        private void buttonOperator_Click(object sender, EventArgs e)
+        private void buttonOperator_Click(object sender, EventArgs e)  //нажатие на кнопки операций +, -, *, /, ^, √
         {
             Button button = (Button)sender;
             operation = button.Text;
@@ -61,6 +62,15 @@ namespace Calculator2
                     else
                         textBox_Result.Text = "Error";
                     break;
+                case "^":
+                    textBox_Result.Text = Math.Pow(result, secondNumber).ToString();
+                    break;
+                case "√":
+                    if (result >= 0)
+                        textBox_Result.Text = Math.Sqrt(result).ToString();
+                    else
+                        textBox_Result.Text = "Error";
+                    break;
             }
             label_Expression.Text = "";
         }
@@ -71,6 +81,28 @@ namespace Calculator2
             result = 0;
             operation = "";
             label_Expression.Text = "";
+        }
+
+        private void buttonSqrt_Click(object sender, EventArgs e) // нажатие на кнопку квадратный корень
+        {
+            double number = double.Parse(textBox_Result.Text);
+            if (number >= 0)
+            {
+                textBox_Result.Text = Math.Sqrt(number).ToString();
+                label_Expression.Text = "√" + number;
+            }
+            else
+            {
+                textBox_Result.Text = "Error";
+            }
+        }
+
+        private void buttonPower_Click(object sender, EventArgs e)  //  нажатие на кнопку возведение в степень
+        {
+            operation = "^";
+            result = double.Parse(textBox_Result.Text);
+            isOperationPerformed = true;
+            label_Expression.Text = result + " ^";
         }
     }
 }
